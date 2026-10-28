@@ -15,6 +15,11 @@ CREATE TABLE Restaurants (
     idCategorie SMALLINT FOREIGN KEY REFERENCES Categories(idCategorie)
 );
 
+INSERT INTO Categories (idCategorie, nomCategorie) VALUES 
+(1, 'Cuisine Italienne'), 
+(2, 'Cuisine Française'), 
+(3, 'Cuisine Variée'), 
+(4, 'Cuisine Japonaise');
 
 
 GO
@@ -89,5 +94,28 @@ RETURN (
     WHERE idCategorie = @idCategorie
 );
 
--- différences entre executenonquery(), executereader(), executescaler() : sera une question à l'exam final (élément important)
--- insert: executenonquery(), select qui retourne une valeur: executescaler()
+
+
+GO
+EXEC sp_AjouterRestaurant 
+    @nomRestaurant = 'La Trattoria', @adresse = '123 Rue Dante, Montréal', @nbEtoiles = 4, @prixMoyen = 45.00, 
+    @commentaire = 'Un restaurant italien exceptionnel avec des pâtes fraîches.', @idCategorie = 1;
+GO
+
+-- 2. Test d'insertion : Le Petit Bistro
+EXEC sp_AjouterRestaurant 
+    @nomRestaurant = 'Le Petit Bistro', @adresse = '456 Avenue Laurier, Montréal', @nbEtoiles = 5, @prixMoyen = 85.00, 
+    @commentaire = 'Un service remarquable et un repas tout à fait bon et raffiné.', @idCategorie = 2;
+GO
+
+-- 3. Test d'insertion : Chez Mario
+EXEC sp_AjouterRestaurant 
+    @nomRestaurant = 'Chez Mario', @adresse = '789 Boulevard Saint-Laurent, Montréal', @nbEtoiles = 3, @prixMoyen = 30.00,
+    @commentaire = 'Correct mais sans plus.', @idCategorie = 1;
+GO
+
+-- 4. Test d'insertion : Le Gourmet Express
+EXEC sp_AjouterRestaurant 
+    @nomRestaurant = 'Le Gourmet Express', @adresse = '321 Rue Sherbrooke, Montréal', @nbEtoiles = 4, @prixMoyen = 55.00, 
+    @commentaire = 'Un choix varié et de bons plats.', @idCategorie = 3;
+GO
