@@ -76,7 +76,7 @@ RETURN (
 
 
 GO
-CREATE OR ALTER FUNCTION fn_RechercherParEtoiles (@nbEtoiles SMALLINT)
+CREATE OR ALTER FUNCTION fn_RechercherParEtoiles (@nbEtoiles INT)
 RETURNS TABLE
 AS
 RETURN (
@@ -86,7 +86,7 @@ RETURN (
 
 
 GO
-CREATE OR ALTER FUNCTION fn_RechercherParCategorie (@idCategorie SMALLINT)
+CREATE OR ALTER FUNCTION fn_RechercherParCategorie (@idCategorie INT)
 RETURNS TABLE
 AS
 RETURN (
@@ -118,4 +118,34 @@ GO
 EXEC sp_AjouterRestaurant 
     @nomRestaurant = 'Le Gourmet Express', @adresse = '321 Rue Sherbrooke, Montréal', @nbEtoiles = 4, @prixMoyen = 55.00, 
     @commentaire = 'Un choix varié et de bons plats.', @idCategorie = 3;
+GO
+
+
+
+
+
+SELECT * FROM fn_RechercherTous();
+
+SELECT * FROM fn_RechercherParCommentaire();
+GO
+
+-- Test 3 : Tester la fonction de recherche par étoiles (ex: 4 étoiles)
+SELECT * FROM fn_RechercherParEtoiles(4);
+GO
+
+-- Test 4 : Tester la fonction de recherche par catégorie (ex: id 1 = Cuisine Italienne)
+SELECT * FROM fn_RechercherParCategorie(1);
+GO
+
+EXEC sp_AjouterRestaurant 
+    @nomRestaurant = 'Pizzeria Bella', 
+    @adresse = '999 Rue Sainte-Catherine, Montréal', 
+    @nbEtoiles = 5, 
+    @prixMoyen = 40.00, 
+    @commentaire = 'Un excellent service et des pizzas fantastiques.', 
+    @idCategorie = 1;
+GO
+
+-- Test 6 : Tester la procédure stockée de modification des étoiles (ex: Mettre le restaurant ID 1 à 5 étoiles)
+EXEC sp_ModifierEtoiles @idRestaurant = 1, @nbEtoiles = 5;
 GO
