@@ -93,6 +93,7 @@ constraint fkArmuresItems foreign key(idItem) references Items(idItem)
 );
 
 -----Table TypeDegats
+go
 create table typeDegats
 (
 codeDegat char(3) not null,
@@ -100,6 +101,7 @@ nomDegat varchar(60) not null,
 constraint pk_Ddegat primary key(codeDegat));
 
 ----Table ResistanceArmure
+go
 create table ResitanceArmures
 (
 codeDegat char(3) not null,
